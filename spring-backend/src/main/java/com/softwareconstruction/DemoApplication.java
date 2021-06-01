@@ -1,4 +1,4 @@
-package com.softwareconstruction.demo;
+package com.softwareconstruction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

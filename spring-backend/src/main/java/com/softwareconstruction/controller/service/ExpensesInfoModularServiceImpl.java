@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ExpensesInfoModularServiceImpl implements ExpensesInfoModularService {
-
     private final ExpensesInfoService expensesInfoService;
 
     @Override

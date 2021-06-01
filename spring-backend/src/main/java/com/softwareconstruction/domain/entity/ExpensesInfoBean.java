@@ -22,4 +22,12 @@ public class ExpensesInfoBean implements Serializable{
 
     @Column(name = "TIME_STAMP")
     private LocalDateTime timeStamp = LocalDateTime.now();
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", insertable = false, updatable = false)
+    private UserBean userBean;
+
+    @ManyToOne()
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID", insertable = false, updatable = false)
+    private CategoryBean categoryBean;
 }

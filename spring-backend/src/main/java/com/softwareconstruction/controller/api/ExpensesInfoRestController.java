@@ -17,10 +17,6 @@ public class ExpensesInfoRestController {
 
     @PostMapping("/create")
     public ResponseModel<String> makeUpdate(@RequestBody ExpensesInfoModel expensesInfoModel) throws Exception {
-        System.out.println(expensesInfoModel.getAmount());
-        System.out.println("Testing");
-
-        return null;
-//        return expensesInfoService.makeUpdate(expensesInfoModel);
+        return expensesInfoService.makeUpdate(expensesInfoModel);
     }
 }
