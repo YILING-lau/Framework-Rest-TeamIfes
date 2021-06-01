@@ -1,0 +1,14 @@
+.logo {
+  margin: 0 15px;
+}
+:host {
+  ::ng-deep .navbar {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border-bottom: 1px grey solid;
+  }
+  ::ng-deep p-menubarsub{
+    padding: 10px;
+  }
+}
