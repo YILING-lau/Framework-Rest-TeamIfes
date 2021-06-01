@@ -1,0 +1,19 @@
+::ng-deep .expenseContainer {
+  width: 200px;
+  padding: 0;
+  .p-card-body {
+    padding: 10px 15px;
+    .p-card-content {
+      padding: 0;
+    }
+  }
+}
+
+h3 {
+  margin: 0;
+}
+
+.expenseText {
+  display: block;
+  margin: 10px 0;
+}
