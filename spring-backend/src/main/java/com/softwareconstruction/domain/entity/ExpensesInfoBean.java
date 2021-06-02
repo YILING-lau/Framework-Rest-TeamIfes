@@ -24,10 +24,10 @@ public class ExpensesInfoBean implements Serializable{
     private LocalDateTime timeStamp = LocalDateTime.now();
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private UserBean userBean;
 
     @ManyToOne()
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     private CategoryBean categoryBean;
 }

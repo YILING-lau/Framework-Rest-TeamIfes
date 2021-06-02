@@ -19,7 +19,6 @@ public class UserBean implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-
     @OneToMany(mappedBy = "userBean")
     private List<ExpensesInfoBean> expensesInfoBeanList;
 }
