@@ -1,4 +1,4 @@
-package com.softwareconstruction.constant;
+package com.softwareconstruction.security;
 
 public class SecurityConstants {
 
