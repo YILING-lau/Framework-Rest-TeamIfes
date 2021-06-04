@@ -13,6 +13,25 @@
     <br>
     <p-card>
       <div class="p-text-bold">Expenses History: </div>
+      <br />
+      <p-table [value]="expenseList" styleClass="p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Code</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-expense>
+            <tr>
+                <td>{{expense.code}}</td>
+                <td>{{expense.category}}</td>
+                <td>{{expense.date}}</td>
+                <td>RM{{expense.amount | number : '1.2-2'}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
     </p-card>
   </div>
   <div class="p-col"></div>

@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SharedModule } from 'primeng/api';
 import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { ChartModule } from 'primeng/chart';
 import { FormsModule } from '@angular/forms';
@@ -41,6 +42,7 @@ import { BarComponent } from './module/dashboard/bar/bar.component';
     SelectButtonModule,
     SharedModule,
     CardModule,
+    TableModule,
     ChartModule,
   ],
   providers: [],
