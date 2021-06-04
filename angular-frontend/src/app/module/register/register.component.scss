@@ -1,0 +1,21 @@
+.container {
+  // height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainer {
+  margin: 20px 0px;
+  padding: 20px 50px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formContainer {
+  margin-top: 20px;
+}
