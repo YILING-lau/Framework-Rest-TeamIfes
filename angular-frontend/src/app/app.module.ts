@@ -34,12 +34,12 @@ import { BarComponent } from './module/dashboard/bar/bar.component';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-  ],
-  imports: [
-    HttpClientModule,
     DoughnutComponent,
     LineComponent,
     BarComponent,
+  ],
+  imports: [
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
