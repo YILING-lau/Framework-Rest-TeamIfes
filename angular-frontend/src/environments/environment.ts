@@ -8,7 +8,7 @@ export const environment = {
   flags: {
     useNewHeader: true,
   },
-  apiUrl: '/demo-backend/',
+  apiUrl: 'http://localhost:8081/demo-backend',
   name: 'dev',
   devMode: true,
   consoleEnabled: true,
