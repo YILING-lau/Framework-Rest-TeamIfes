@@ -3,11 +3,16 @@
     <div class="p-text-bold">Overview</div>
   </p-card>
   <p-card class="p-my-2">
-    <p-chart type="doughnut" [data]="data"></p-chart>
-    <p-button type="button" pButton (click)="update($event)">Ass</p-button>
+    <app-doughnut></app-doughnut>
   </p-card>
   <p-card class="p-my-2">
-    <p-chart type="doughnut" [data]="data"></p-chart>
-    <p-button type="button" pButton (click)="update($event)">Ass</p-button>
+    
+    <div *ngIf="default">
+      <app-bar></app-bar>
+    </div>
+    <div *ngIf="!default">
+    <app-line></app-line>
+    </div>
+    <p-selectButton [options]="stateOptions" [(ngModel)]="default" optionLabel="label" optionValue="value" (onChange)= "onChange($event)"></p-selectButton>
   </p-card>
 </div>
