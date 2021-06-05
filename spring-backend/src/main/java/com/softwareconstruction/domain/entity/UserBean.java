@@ -17,7 +17,7 @@ public class UserBean implements UserDetails, Serializable {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
