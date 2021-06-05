@@ -26,6 +26,10 @@ import { FormsModule } from '@angular/forms';
 import { DoughnutComponent } from './module/dashboard/doughnut/doughnut.component';
 import { LineComponent } from './module/dashboard/line/line.component';
 import { BarComponent } from './module/dashboard/bar/bar.component';
+import { DialogModule } from 'primeng/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +56,10 @@ import { BarComponent } from './module/dashboard/bar/bar.component';
     CardModule,
     TableModule,
     ChartModule,
-    ReactiveFormsModule,
+    DialogModule,
+    BrowserAnimationsModule,
+    DropdownModule,
+    CalendarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
