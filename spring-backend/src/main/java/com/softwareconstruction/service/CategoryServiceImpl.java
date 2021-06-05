@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -16,5 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly = true)
     public CategoryBean getCategoryById(String Id) {
         return categoryDao.findById(Id).get();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CategoryBean> getAllCategory() {
+        return categoryDao.findAll();
     }
 }

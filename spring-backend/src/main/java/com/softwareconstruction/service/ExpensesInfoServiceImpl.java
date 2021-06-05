@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExpensesInfoServiceImpl implements ExpensesInfoService {
@@ -27,5 +29,11 @@ public class ExpensesInfoServiceImpl implements ExpensesInfoService {
     @Transactional
     public void deleteExpensesById(Long id) {
         expensesInfoDao.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ExpensesInfoBean> getExpensesByUserId(Long userId) {
+        return expensesInfoDao.findAllByUserBean_Id(userId);
     }
 }

@@ -3,9 +3,12 @@ package com.softwareconstruction.controller.api;
 import com.softwareconstruction.controller.service.ExpensesInfoModularService;
 import com.softwareconstruction.model.ExpensesInfoModel;
 import com.softwareconstruction.model.ExpensesInfoUpdateModel;
+import com.softwareconstruction.model.ExpensesModel;
 import com.softwareconstruction.model.ResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,5 +29,10 @@ public class ExpensesInfoRestController {
     @PostMapping("/delete" + "/{Id}")
     public ResponseModel<String> deleteExpensesById(@PathVariable Long Id){
         return expensesInfoService.deleteExpensesById(Id);
+    }
+
+    @GetMapping("/userId" + "/{userId}")
+    public ResponseModel<List<ExpensesModel>> getExpensesByUserId(@PathVariable Long userId){
+        return expensesInfoService.getExpensesByUserId(userId);
     }
 }

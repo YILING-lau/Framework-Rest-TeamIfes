@@ -5,12 +5,16 @@ import com.softwareconstruction.domain.entity.ExpensesInfoBean;
 import com.softwareconstruction.domain.entity.UserBean;
 import com.softwareconstruction.model.ExpensesInfoModel;
 import com.softwareconstruction.model.ExpensesInfoUpdateModel;
+import com.softwareconstruction.model.ExpensesModel;
 import com.softwareconstruction.model.ResponseModel;
 import com.softwareconstruction.service.CategoryService;
 import com.softwareconstruction.service.ExpensesInfoService;
 import com.softwareconstruction.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -48,6 +52,23 @@ public class ExpensesInfoModularServiceImpl implements ExpensesInfoModularServic
     public ResponseModel<String> deleteExpensesById(Long id) {
         expensesInfoService.deleteExpensesById(id);
         return new ResponseModel<String>().success("expenses.voided");
+    }
+
+    @Override
+    public ResponseModel<List<ExpensesModel>> getExpensesByUserId(Long userId) {
+        List<ExpensesInfoBean> expensesInfoBeanList = expensesInfoService.getExpensesByUserId(userId);
+        List<ExpensesModel> expenseModelList = expensesInfoBeanList.stream().map(
+                expensesInfoBean -> {
+                    ExpensesModel model = new ExpensesModel();
+                    model.setId(expensesInfoBean.getId());
+                    model.setAmount(expensesInfoBean.getAmount());
+                    model.setCategoryLabel(expensesInfoBean.getCategoryBean().getLabel());
+                    model.setCategoryColor(expensesInfoBean.getCategoryBean().getColor());
+                    return model;
+                }
+        ).collect(Collectors.toList());
+
+        return new ResponseModel<List<ExpensesModel>>().success(expenseModelList);
     }
 
     private void validateExpensesInput(ExpensesInfoUpdateModel expensesInfoModel) throws Exception {
