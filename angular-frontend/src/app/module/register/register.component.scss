@@ -1,5 +1,4 @@
 .container {
-  // height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -18,4 +17,10 @@
 
 .formContainer {
   margin-top: 20px;
+}
+
+.fieldError{
+  padding:5px 0;
+  font-size: 0.8em;
+  color:red;
 }

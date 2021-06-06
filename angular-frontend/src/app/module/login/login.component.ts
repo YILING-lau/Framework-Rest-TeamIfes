@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/auth/auth.service';
 import { get } from 'lodash-es';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loading: boolean;
-  loginForm: FormGroup;
-  returnUrl: string;
+  loginForm!: FormGroup;
+  returnUrl!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,19 +25,29 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authenticationService
-      .login(
-        get(this.loginForm.value, 'email'),
-        get(this.loginForm.value, 'password')
-      )
-      .subscribe((user) => this.router.navigate([this.returnUrl]));
+    if (this.loginForm?.valid ?? false) {
+      this.authenticationService
+        .login(
+          get(this.loginForm?.value, 'email'),
+          get(this.loginForm?.value, 'password')
+        )
+        .subscribe(
+          (user) => this.router.navigate([this.returnUrl]),
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+            });
+          }
+        );
+    }
   }
 
   ngOnInit(): void {
-    this.loading = false;
     this.loginForm = new FormGroup({
       email: new FormControl(
-        'My@email.com',
+        null,
         Validators.compose([Validators.required, Validators.email])
       ),
       password: new FormControl(
