@@ -1,7 +1,6 @@
 package com.softwareconstruction.model;
 
 import lombok.Data;
-import java.time.LocalDateTime;
 
 @Data
 public class ExpensesModel {
@@ -9,4 +8,5 @@ public class ExpensesModel {
     private Double amount;
     private String categoryLabel;
     private String categoryColor;
+    private String date;
 }

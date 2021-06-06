@@ -13,7 +13,11 @@ import com.softwareconstruction.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,6 +26,7 @@ public class ExpensesInfoModularServiceImpl implements ExpensesInfoModularServic
     private final ExpensesInfoService expensesInfoService;
     private final CategoryService categoryService;
     private final UserService userService;
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Override
     public ResponseModel<String> makeUpdate(ExpensesInfoUpdateModel expensesInfoModel) throws Exception {
@@ -32,6 +37,7 @@ public class ExpensesInfoModularServiceImpl implements ExpensesInfoModularServic
 
         userBean.setId(expensesInfoModel.getUserId());
         expensesInfoBean.setAmount(expensesInfoModel.getAmount());
+        expensesInfoBean.setTimeStamp(LocalDateTime.ofInstant(Instant.ofEpochMilli(expensesInfoModel.getTimestamp()),TimeZone.getDefault().toZoneId()));
         expensesInfoBean.setCategoryBean(categoryBean);
         expensesInfoBean.setUserBean(userBean);
         expensesInfoService.makeUpdate(expensesInfoBean);
@@ -62,6 +68,7 @@ public class ExpensesInfoModularServiceImpl implements ExpensesInfoModularServic
                     ExpensesModel model = new ExpensesModel();
                     model.setId(expensesInfoBean.getId());
                     model.setAmount(expensesInfoBean.getAmount());
+                    model.setDate(expensesInfoBean.getTimeStamp().format(formatter));
                     model.setCategoryLabel(expensesInfoBean.getCategoryBean().getLabel());
                     model.setCategoryColor(expensesInfoBean.getCategoryBean().getColor());
                     return model;
