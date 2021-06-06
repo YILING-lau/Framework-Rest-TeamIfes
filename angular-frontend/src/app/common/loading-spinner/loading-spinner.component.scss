@@ -1,0 +1,41 @@
+.progress-spinner {
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgba($color: #1c1c1c, $alpha: 0.85);
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+    stroke: #d62d20;
+    stroke-width: 15px;
+  }
+  40% {
+    stroke: #0057e7;
+    stroke-width: 15px;
+  }
+  66% {
+    stroke: #008744;
+    stroke-width: 15px;
+  }
+  80%,
+  90% {
+    stroke: #ffa700;
+    stroke-width: 15px;
+  }
+}

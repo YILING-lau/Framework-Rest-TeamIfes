@@ -1,0 +1,40 @@
+::ng-deep .expenseContainer {
+  width: 200px;
+  padding: 0;
+  .p-card-body {
+    padding: 10px 15px;
+    .p-card-content {
+      padding: 0;
+    }
+  }
+}
+
+h3 {
+  margin: 0;
+}
+
+.expenseText {
+  display: block;
+  margin: 10px 0;
+}
+
+.box {
+  float: left;
+  height: 15px;
+  width: 15px;
+  clear: both;
+  margin: 5px;
+}
+
+.colorSquare{
+  display:block;
+  height:15px;
+  width:15px;
+  box-sizing: border-box;
+}
+
+.fieldError{
+  padding:5px 0;
+  font-size: 0.8em;
+  color:red;
+}

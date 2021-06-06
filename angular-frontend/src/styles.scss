@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+%full-height-width {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  @extend %full-height-width;
+}
+
+body {
+  @extend %full-height-width;
+  font-family: "Open Sans", sans-serif;
+  background-color: #cbe0f9;
+}

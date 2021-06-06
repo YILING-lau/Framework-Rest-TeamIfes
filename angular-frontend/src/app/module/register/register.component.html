@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="p-mt-3 loginContainer">
+    <div style="text-align:center">
+      <img src="https://img.icons8.com/clouds/100/000000/money.png" height="50%" class="logo">
+      <div class="p-text-bold"> Welcome to ExpensesTracker</div>
+    </div>
+    <form [formGroup]="registerForm" class="p-fluid formContainer" (ngSubmit)="onSubmit()">
+      <div class="p-field">
+        <label for="name">Name</label>
+        <input formControlName="name" id="name" type="text" pInputText>
+        <div class="fieldError" *ngIf="registerForm.get('name').invalid && registerForm.get('name').touched">
+          Please enter your name
+        </div>
+      </div>
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input formControlName="email" id="email" type="email" pInputText>
+        <div class="fieldError" *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+          Please enter valid email
+        </div>
+      </div>
+      <div class="p-field">
+        <label for="password">Password</label>
+        <input formControlName="password" id="password" type="password" pInputText>
+        <div class="fieldError" *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched">
+          Please enter valid password
+        </div>
+      </div>
+      <div class="p-field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input formControlName="confirmPassword" id="confirmPassword" type="password" pInputText>
+        <div class="fieldError" *ngIf="registerForm.get('confirmPassword').invalid && registerForm.get('confirmPassword').touched">
+          Please enter a valid confirm password
+        </div>
+      </div>
+      <div class="p-field">
+        <p-button type="submit" label="Sign Up" [disabled]="!registerForm.valid"> </p-button>
+      </div>
+    </form>
+  </div>
+</div>
