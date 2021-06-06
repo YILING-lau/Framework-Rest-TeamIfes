@@ -25,3 +25,16 @@ h3 {
   clear: both;
   margin: 5px;
 }
+
+.colorSquare{
+  display:block;
+  height:15px;
+  width:15px;
+  box-sizing: border-box;
+}
+
+.fieldError{
+  padding:5px 0;
+  font-size: 0.8em;
+  color:red;
+}

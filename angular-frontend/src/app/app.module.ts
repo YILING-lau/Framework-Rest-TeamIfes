@@ -64,6 +64,7 @@ import { LoadingInterceptor } from './core/util/loading.interceptor';
     BrowserAnimationsModule,
     DropdownModule,
     CalendarModule,
+    ReactiveFormsModule,
     ProgressSpinnerModule,
   ],
   providers: [

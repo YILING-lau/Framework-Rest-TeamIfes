@@ -1,73 +1,87 @@
 <div class="p-grid">
-  <div class="p-col"  style="padding:0px"></div>
+  <div class="p-col" style="padding:0px"></div>
   <div class="p-col-10">
     <div class="p-mt-4">
       <p-card styleClass="expenseContainer">
         <h3>Total Expenses: </h3>
-        <span class="expenseText">RM {{expense}}</span>
+        <span class="expenseText">RM {{totalExpense}}</span>
       </p-card>
     </div>
-    <div class="p-my-3">
-      <p-dialog header="Add New Expense" [(visible)]="display" [style]="{width: '30vw'}">
-        <div class="p-fluid" [style]="{ height: '60vh'}">
+    <form [formGroup]="expenseEntryForm" class="p-my-3" (ngSubmit)="onSubmit()">
+      <p-dialog header="Add New Expense" [(visible)]="display" [style]="{width: '50vw'}" [modal]="true">
+        <div class="p-fluid" [style]="{ height: '70vh'}">
           <div class="p-field" [style]="{ marginBottom: '30px'}">
             <label for="date">Date</label>
-            <p-calendar id="date" [(ngModel)]="value" placeholder="Pick a Date"></p-calendar>
+            <p-calendar formControlName="date" id="date" placeholder="Pick a Date"></p-calendar>
+            <div class="fieldError"
+              *ngIf="expenseEntryForm.get('date').invalid && expenseEntryForm.get('date').touched">
+              Please select a date
+            </div>
           </div>
           <div class="p-field" [style]="{ marginBottom: '30px'}">
-              <label for="category">Category</label>
-              <p-dropdown id="category" [options]="expenses" [(ngModel)]="selectedExpense" optionLabel="name" [showClear]="true" placeholder="Select a Category">
-                <ng-template pTemplate="selectedItem">
-                  <div *ngIf="selectedExpense">
-                    
-                      <div class='box' [style.background-color]="selectedExpense.color"></div>
-                      <div >{{selectedExpense.name}}</div>
-                    
-                  </div>
+            <label for="category">Category</label>
+            <p-dropdown id="category" [options]="expenseCategoryList" [(ngModel)]="selectedCategory" optionLabel="name"
+              [showClear]="true" placeholder="Select a Category" formControlName="category">
+              <ng-template pTemplate="selectedItem">
+                <div *ngIf="selectedCategory">
+                  <div class='box' [style.background-color]="selectedCategory.color"></div>
+                  <div>{{selectedCategory.name}}</div>
+                </div>
               </ng-template>
               <ng-template let-expense pTemplate="item">
-                  <div>
-                    <div class='box' [style.background-color]="expense.color"></div>
-                      <div>{{expense.name}}</div>
-                  </div>
+                <div>
+                  <div class='box' [style.background-color]="expense.color"></div>
+                  <div>{{expense.name}}</div>
+                </div>
               </ng-template>
-              </p-dropdown>
+            </p-dropdown>
+            <div class="fieldError"
+              *ngIf="expenseEntryForm.get('category').invalid && expenseEntryForm.get('category').touched">
+              Please select a category
+            </div>
           </div>
           <div class="p-field" [style]="{ marginBottom: '100px'}">
-              <label for="amount">Amount</label>
-              <input id="amount" type="number" pInputText placeholder="RM"> 
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" pInputText placeholder="RM" formControlName="amount">
+            <div class="fieldError"
+              *ngIf="expenseEntryForm.get('amount').invalid && expenseEntryForm.get('amount').touched">
+              Please enter a valid amount
+            </div>
           </div>
-          <div class="p-field" >
-            <button pButton type="button" label="Submit"></button>
+          <div class="p-field">
+            <button pButton type="submit" label="Submit"></button>
           </div>
         </div>
       </p-dialog>
-      <button pButton class="p-button-secondary" type="button" label="Add New Expense" icon="pi pi-plus" (click)="showDialog()"></button>
-    </div>
+      <button pButton class="p-button-secondary" type="button" label="Add New Expense" icon="pi pi-plus"
+        (click)="showDialog()"></button>
+    </form>
     <br>
     <p-card>
       <div class="p-text-bold">Expenses History: </div>
       <br />
       <p-table [value]="expenseList" styleClass="p-datatable-striped">
         <ng-template pTemplate="header">
-            <tr>
-                <th>Code</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Actions</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
         </ng-template>
         <ng-template pTemplate="body" let-expense>
-            <tr>
-                <td>{{expense.code}}</td>
-                <td>{{expense.category}}</td>
-                <td>{{expense.date}}</td>
-                <td>RM{{expense.amount | number : '1.2-2'}}</td>
-                <td><button pButton type="button" class="p-button-secondary" icon="pi pi-trash" iconPos="left"></button></td>
-            </tr>
+          <tr>
+            <td>{{expense.id}}</td>
+            <td>{{expense.categoryLabel}}</td>
+            <td>{{expense.date}}</td>
+            <td>RM{{expense.amount | number : '1.2-2'}}</td>
+            <td>
+              <p-button type="button" class="p-button-secondary" icon="pi pi-trash" iconPos="left" (onClick)="onDelete(expense.id)"></p-button>
+            </td>
+          </tr>
         </ng-template>
-    </p-table>
+      </p-table>
     </p-card>
   </div>
   <div class="p-col" style="padding:0px"></div>
