@@ -11,7 +11,7 @@ import { User } from 'src/app/core/auth/user';
 })
 export class NavbarComponent implements OnInit {
   items: MenuItem[] = [];
-  currentUser: User;
+  currentUser: User | undefined;
 
   constructor(
     private router: Router,
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.currentUser = null;
+    this.currentUser = undefined;
     this.router.navigate(['/login']);
   }
 
