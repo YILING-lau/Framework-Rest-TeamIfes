@@ -30,6 +30,9 @@ import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinner.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LoadingInterceptor } from './core/util/loading.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,7 @@ import { CalendarModule } from 'primeng/calendar';
     DoughnutComponent,
     LineComponent,
     BarComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     HttpClientModule,
@@ -60,10 +64,12 @@ import { CalendarModule } from 'primeng/calendar';
     BrowserAnimationsModule,
     DropdownModule,
     CalendarModule,
+    ProgressSpinnerModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
