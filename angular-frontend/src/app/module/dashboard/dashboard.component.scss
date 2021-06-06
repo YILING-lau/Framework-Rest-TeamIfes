@@ -1,5 +1,16 @@
 $medium: 900px;
 $large: 1100px;
+%cardMediaQuery {
+  @media screen and (max-width: $medium) {
+    width: 75vw !important;
+  }
+  @media screen and (min-width: $medium) and (max-width: $large) {
+    width: 41vw !important;
+  }
+  @media screen and (min-width: $large) {
+    width: 43vw !important;
+  }
+}
 
 .container {
   width: 100%;
@@ -15,18 +26,15 @@ $large: 1100px;
   }
 }
 
-::ng-deep p-chart {
+::ng-deep p-chart{
   canvas {
-    @media screen and (max-width: $medium) {
-      width: 75vw !important;
-    }
-    @media screen and (min-width: $medium) and (max-width: $large) {
-      width: 42vw !important;
-    }
-    @media screen and (min-width: $large) {
-      width: 43vw !important;
-    }
+    @extend %cardMediaQuery;
   }
+}
+
+.textContainer{
+  @extend %cardMediaQuery;
+  text-align: center;
 }
 
 .title {

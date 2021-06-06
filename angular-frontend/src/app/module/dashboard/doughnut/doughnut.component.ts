@@ -1,34 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { map, uniq, filter, reduce, find } from 'lodash-es';
+import Expense from '../../expense.interface';
 
 @Component({
   selector: 'app-doughnut',
   templateUrl: './doughnut.component.html',
   styleUrls: ['./doughnut.component.scss'],
 })
-export class DoughnutComponent implements OnInit {
+export class DoughnutComponent implements OnInit, OnChanges {
   height: string;
   width: string;
   data: any;
-  data1: any;
   options: any;
+
+  @Input()
+  expenseList: Expense[] = [];
 
   constructor() {
     this.height = '70vh';
     this.width = '45vw';
-    this.data = {
-      labels: ['A', 'B', 'C'],
-      datasets: [
-        {
-          data: [300, 50, 100],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        },
-      ],
-    };
     this.options = {
       title: {
         display: true,
-        text: 'My Title',
+        text: 'Expense by Category',
         fontSize: 16,
       },
       legend: {
@@ -36,29 +36,34 @@ export class DoughnutComponent implements OnInit {
       },
     };
   }
-
-  update(event: Event) {
-    let arr = [...Array(3)].map(() => Math.floor(Math.random() * 300));
-    console.log('Went here => ', arr);
+  ngOnChanges(changes: SimpleChanges): void {
+    let labelArr = uniq(
+      map(this.expenseList, (expense) => expense.categoryLabel)
+    );
+    let colorArr = map(
+      labelArr,
+      (label) =>
+        find(this.expenseList, (expense) => expense.categoryLabel == label)
+          .categoryColor
+    );
     this.data = {
-      labels: ['A', 'B', 'C'],
+      labels: labelArr,
       datasets: [
         {
-          data: arr,
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          data: map(labelArr, (label) =>
+            reduce(
+              filter(
+                this.expenseList,
+                (expense) => expense.categoryLabel === label
+              ),
+              (prev, next) => prev + next.amount,
+              0
+            )
+          ),
+          backgroundColor: colorArr,
+          hoverBackgroundColor: colorArr,
         },
       ],
-    };
-    this.options = {
-      title: {
-        display: true,
-        text: 'My Title',
-        fontSize: 16,
-      },
-      legend: {
-        position: 'bottom',
-      },
     };
   }
 

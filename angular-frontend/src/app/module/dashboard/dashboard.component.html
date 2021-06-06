@@ -2,16 +2,21 @@
   <p-card class="title">
     <div class="p-text-bold">Overview</div>
   </p-card>
-  <p-card class="p-my-2">
-    <app-doughnut></app-doughnut>
+  <p-card class="p-my-2" *ngIf="isExpenseListEmpty">
+    <div class="textContainer">No expense data recorded</div>
   </p-card>
-  <p-card class="p-my-2">
-    
+  <p-card class="p-my-2" *ngIf="!isExpenseListEmpty">
+    <app-doughnut [expenseList]="expenseList"></app-doughnut>
+  </p-card>
+  <p-card class="p-my-2" *ngIf="isExpenseListEmpty">
+    <div class="textContainer">No expense data recorded</div>
+  </p-card>
+  <p-card class="p-my-2" *ngIf="!isExpenseListEmpty">
     <div *ngIf="default">
-      <app-bar></app-bar>
+      <app-bar [expenseList]="expenseList"></app-bar>
     </div>
     <div *ngIf="!default">
-    <app-line></app-line>
+    <app-line [expenseList]="expenseList"></app-line>
     </div>
     <p-selectButton [options]="stateOptions" [(ngModel)]="default" optionLabel="label" optionValue="value" (onChange)= "onChange($event)"></p-selectButton>
   </p-card>

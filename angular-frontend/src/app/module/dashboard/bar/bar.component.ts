@@ -1,38 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { get, reduce, values, groupBy, map, forEach  } from 'lodash-es';
+import * as moment from 'moment';
+import Expense from '../../expense.interface';
 
+const MONTH_ARR = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 @Component({
   selector: 'app-bar',
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.scss'],
 })
-export class BarComponent implements OnInit {
+export class BarComponent implements OnInit, OnChanges {
   basicData: any;
 
   basicOptions: any;
-  constructor() {}
 
-  ngOnInit(): void {
-    this.basicData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'A',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          backgroundColor: '#FF6384',
-        },
-        {
-          label: 'B',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          backgroundColor: '#36A2EB',
-        },
-        {
-          label: 'c',
-          data: [50, 12, 47, 30, 20, 9, 18],
-          backgroundColor: '#FFCE56',
-        },
-      ],
-    };
+  @Input()
+  expenseList: Expense[] = [];
 
+  constructor() {
     this.basicOptions = {
       legend: {
         labels: {
@@ -57,4 +61,34 @@ export class BarComponent implements OnInit {
       },
     };
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    let categoryGroup = groupBy(
+      this.expenseList,
+      (expense) => expense.categoryLabel
+    );
+    let dataset = values(
+      map(categoryGroup, (data, label) => {
+        let monthGroup = groupBy(data, (expense) =>
+          moment(expense.date, 'DD/MM/YYYY').month()
+        );
+        let dataList = Array(12).fill(0);
+        forEach(monthGroup, (value, index) => {
+          let totalAmount = reduce(value, (prev, next) => prev + next.amount, 0);
+          dataList[(index as unknown as number)] = totalAmount;
+        });
+        return {
+          label: label,
+          data: dataList,
+          backgroundColor: get(data, '0.categoryColor', 'white'),
+        };
+      })
+    );
+    this.basicData = {
+      labels: MONTH_ARR,
+      datasets: dataset,
+    };
+  }
+
+  ngOnInit(): void {}
 }
