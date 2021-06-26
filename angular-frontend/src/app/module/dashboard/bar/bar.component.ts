@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { get, reduce, values, groupBy, map, forEach  } from 'lodash-es';
+import { get, reduce, values, groupBy, map, forEach } from 'lodash-es';
 import * as moment from 'moment';
 import Expense from '../../expense.interface';
 
@@ -23,6 +23,7 @@ const MONTH_ARR = [
   'November',
   'December',
 ];
+
 @Component({
   selector: 'app-bar',
   templateUrl: './bar.component.html',
@@ -74,8 +75,12 @@ export class BarComponent implements OnInit, OnChanges {
         );
         let dataList = Array(12).fill(0);
         forEach(monthGroup, (value, index) => {
-          let totalAmount = reduce(value, (prev, next) => prev + next.amount, 0);
-          dataList[(index as unknown as number)] = totalAmount;
+          let totalAmount = reduce(
+            value,
+            (prev, next) => prev + next.amount,
+            0
+          );
+          dataList[index as unknown as number] = totalAmount;
         });
         return {
           label: label,

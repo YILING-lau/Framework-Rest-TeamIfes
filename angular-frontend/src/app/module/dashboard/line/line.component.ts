@@ -1,5 +1,10 @@
-import { Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { get, groupBy, forEach, map, reduce, values } from 'lodash-es';
 import * as moment from 'moment';
 import Expense from '../../expense.interface';
@@ -80,7 +85,6 @@ export class LineComponent implements OnInit, OnChanges {
         return {
           label: label,
           data: dataList,
-          fille: false,
           borderColor: get(data, '0.categoryColor', 'white'),
         };
       })
