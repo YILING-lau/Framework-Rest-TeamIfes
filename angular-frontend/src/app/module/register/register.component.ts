@@ -25,11 +25,11 @@ export class RegisterComponent implements OnInit {
       ),
       password: new FormControl(
         null,
-        Validators.compose([Validators.required, Validators.minLength(8)])
+        Validators.compose([Validators.required])
       ),
       confirmPassword: new FormControl(
         null,
-        Validators.compose([Validators.required, Validators.minLength(8)])
+        Validators.compose([Validators.required])
       ),
     });
   }
@@ -40,22 +40,57 @@ export class RegisterComponent implements OnInit {
       let name = get(this.registerForm.value, 'name');
       let password = get(this.registerForm.value, 'password');
       let confirmPassword = get(this.registerForm.value, 'confirmPassword');
-      if (password !== confirmPassword) {
+
+      if (password.length < 8) {
         Swal.fire({
           icon: 'error',
-          title: 'Password Mismatched',
-          text: 'The password you entered did not match the confirm password entered, please try again',
+          title: 'Password Too Short',
+          text: 'The password you entered is too short, please try again',
           didClose: () => {
-            this.registerForm.reset();
+            // this.registerForm.reset();
           },
         });
       } else {
-        this.createAccount({
-          email,
-          name,
-          password,
-        });
+        if (password.search(/[a-z]/i) < 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'No Letter Found',
+            text: 'Your password must contain at least one letter, please try again',
+            didClose: () => {
+              // this.registerForm.reset();
+            },
+          });
+        } else {
+          if (password.search(/[0-9]/) < 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'No Digit Found',
+              text: 'Your password must contain at least one digit, please try again',
+              didClose: () => {
+                // this.registerForm.reset();
+              },
+            });
+          } else {
+            if (password !== confirmPassword) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Password Mismatched',
+                text: 'The password you entered did not match the confirm password entered, please try again',
+                didClose: () => {
+                  this.registerForm.reset();
+                },
+              });
+            } else {
+              this.createAccount({
+                email,
+                name,
+                password,
+              });
+            }
+          }
+        }
       }
+      
     }
   }
 
